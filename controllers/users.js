@@ -52,7 +52,8 @@ exports.login = asyncHandler(async (req, res, next) => {
 // @route: GET - /api/users/me
 // @access: Private
 exports.getMe = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.user._id).populate("tasks contacts");
+  // .populate("tasks contacts");
+  const user = await User.findById(req.user._id);
 
   res.status(200).json(user);
 });

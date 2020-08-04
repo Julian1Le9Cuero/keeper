@@ -14,10 +14,10 @@ router.post("/register", register);
 router.post("/login", login);
 
 // Route: /api/users/me
-router.get("/register", protect, getMe);
+router.get("/me", protect, getMe);
 
 // Redirect to the contacts routes
 // Route: /api/users/contacts
-router.post("/contacts", require("./contacts"));
+router.use("/contacts", require("./contacts"));
 
 module.exports = router;

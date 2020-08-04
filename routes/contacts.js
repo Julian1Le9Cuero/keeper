@@ -15,8 +15,6 @@ const { protect, checkOwnership } = require("../middlewares/auth");
 
 // Route: /api/users/contacts
 router.post("/", protect, addContact);
-
-// Route: /api/contacts
 router.get("/", protect, getContacts);
 
 // Route: /api/contacts/:id

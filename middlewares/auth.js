@@ -6,29 +6,36 @@ const User = require("../models/User");
 // Protect routes from non authenticated users
 exports.protect = async (req, res, next) => {
   let token;
+
   try {
-    // .replace('Bearer ', '')
-    token = req.header.authorization;
-    console.log(token);
+    token = req.header("Authorization").replace("Bearer ", "");
 
     if (!token) {
       return next(new ErrorResponse("No token, no access.", 401));
     }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const user = await User.findById(decoded.id);
+
+    if (!user) {
+      return next(new ErrorResponse("Invalid token.", 401));
+    }
+
+    req.user = user;
     next();
-    // const decoded = jwt.verify(token, process.env.JWT_SECRET)
-
-    // const user = await User.findById(decoded.id)
-
-    // if (!user) {
-    //     return next(new ErrorResponse('Invalid token.', 401))
-    // }
-
-    // req.user = user
-    // next()
   } catch (error) {
     console.error(error);
-    res.status(401).json({
-      message: "Invalid credentials",
+
+    // Handle malformed jwt
+    if (error.name === "JsonWebTokenError") {
+      return next(
+        new ErrorResponse("You have provided a malformed token.", 400)
+      );
+    }
+
+    res.status(500).json({
+      message: "Token error.",
     });
   }
 };
@@ -36,7 +43,8 @@ exports.protect = async (req, res, next) => {
 exports.checkOwnership = (model) =>
   asyncHandler(async (req, res, next) => {
     const resource = await model.findById(req.params.id);
-
+    console.log(resource);
+    console.log(req.params.id);
     // Check if resource exists
     if (!resource) {
       return next(

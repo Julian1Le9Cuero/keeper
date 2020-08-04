@@ -20,13 +20,10 @@ const ContactSchema = new mongoose.Schema({
     maxlength: [20, "The phone number cannot be more than 20 characters."],
     required: [true, "Please add your contact's phone number."],
   },
-  personal: {
-    type: Boolean,
-    default: true,
-  },
-  professional: {
-    type: Boolean,
-    default: false,
+  contactType: {
+    type: String,
+    enum: ["personal", "professional"],
+    default: "personal",
   },
   user: {
     type: mongoose.Types.ObjectId,
@@ -39,4 +36,4 @@ const ContactSchema = new mongoose.Schema({
   },
 });
 
-module.exports = Contact = mongoose.model('Contact', ContactSchema);
+module.exports = Contact = mongoose.model("Contact", ContactSchema);
