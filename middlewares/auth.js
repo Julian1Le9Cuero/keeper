@@ -43,8 +43,7 @@ exports.protect = async (req, res, next) => {
 exports.checkOwnership = (model) =>
   asyncHandler(async (req, res, next) => {
     const resource = await model.findById(req.params.id);
-    console.log(resource);
-    console.log(req.params.id);
+
     // Check if resource exists
     if (!resource) {
       return next(

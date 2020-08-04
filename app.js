@@ -20,6 +20,9 @@ app.use("/api/users", users);
 const contacts = require("./routes/contacts");
 app.use("/api/contacts", contacts);
 
+const tasks = require("./routes/tasks");
+app.use("/api/tasks", tasks);
+
 // Custom error handling
 const error = require("./middlewares/error");
 app.use(error);

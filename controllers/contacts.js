@@ -3,7 +3,7 @@ const Contact = require("../models/Contact");
 const ErrorResponse = require("../utils/errorResponse");
 
 // @desc: Create contact
-// @route: POST - /api/contacts
+// @route: POST - /api/users/contacts
 // @access: Private
 exports.addContact = asyncHandler(async (req, res, next) => {
   req.body.user = req.user._id;
@@ -22,7 +22,7 @@ exports.addContact = asyncHandler(async (req, res, next) => {
 });
 
 // @desc: Get contacts
-// @route: GET - /api/contacts
+// @route: GET - /api/users/contacts
 // @access: Private
 exports.getContacts = asyncHandler(async (req, res, next) => {
   const contacts = await Contact.find({ user: req.user.id });

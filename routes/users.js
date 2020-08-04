@@ -20,4 +20,8 @@ router.get("/me", protect, getMe);
 // Route: /api/users/contacts
 router.use("/contacts", require("./contacts"));
 
+// Redirect to the tasks routes
+// Route: /api/users/tasks
+router.use("/tasks", require("./tasks"));
+
 module.exports = router;
