@@ -10,9 +10,19 @@ dotenv.config({ path: path.join(__dirname, "config/config.env") });
 const connectToDb = require("./config/db");
 connectToDb();
 
+// Parse incoming JSON data
+app.use(express.json());
+
 // REST API routes
 const users = require("./routes/users");
 app.use("/api/users", users);
+
+const contacts = require("./routes/contacts");
+app.use("/api/contacts", contacts);
+
+// Custom error handling
+const error = require("./middlewares/error");
+app.use(error);
 
 const PORT = process.env.PORT || 5000;
 
