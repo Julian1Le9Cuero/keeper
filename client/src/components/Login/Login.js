@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import "./login.component.scss";
+
 import FormGroup from "../FormGroup/FormGroup";
 import Button from "../Button/Button";
-import "./login.component.scss";
+import Alert from "../Alert/Alert";
 
 import { login } from "../../redux/actions/users";
 
@@ -14,9 +16,9 @@ const Login = ({ login, isAuthenticated }) => {
     password: "",
   });
 
-  if (isAuthenticated) {
-    return <Redirect to="/contacts" />;
-  }
+  // if (isAuthenticated) {
+  //   return <Redirect to="/contacts" />;
+  // }
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -31,6 +33,7 @@ const Login = ({ login, isAuthenticated }) => {
     <div className="login">
       <div className="container">
         <div className="margin-bottom-medium">
+          <Alert />
           <h2 className="heading-secondary">
             Login and{" "}
             <span className="heading-secondary-mini">
@@ -39,17 +42,11 @@ const Login = ({ login, isAuthenticated }) => {
           </h2>
         </div>
         <form action="" className="register__form" onSubmit={handleSubmit}>
-          <FormGroup
-            name="email"
-            type="email"
-            handleChange={handleChange}
-            required
-          />
+          <FormGroup name="email" type="email" handleChange={handleChange} />
           <FormGroup
             name="password"
             type="password"
             handleChange={handleChange}
-            required
           />
           <Button
             kind="button"

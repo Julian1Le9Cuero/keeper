@@ -4,11 +4,13 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import FormGroup from "../FormGroup/FormGroup";
 import Button from "../Button/Button";
+import Alert from "../Alert/Alert";
 import "./register.component.scss";
 
 import { register } from "../../redux/actions/users";
+import { createAlert } from "../../redux/actions/alert";
 
-const Register = ({ register, isAuthenticated }) => {
+const Register = ({ register, isAuthenticated, createAlert }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -31,7 +33,7 @@ const Register = ({ register, isAuthenticated }) => {
 
     // Send alert if passwords don't match
     if (password !== password2) {
-      return "Alert";
+      return createAlert("Passwords must match", "danger");
     }
 
     register(formData);
@@ -41,6 +43,7 @@ const Register = ({ register, isAuthenticated }) => {
     <div className="register">
       <div className="container">
         <div className="margin-bottom-medium">
+          <Alert />
           <h2 className="heading-secondary">
             Register to{" "}
             <span className="heading-secondary-mini">
@@ -94,10 +97,12 @@ const Register = ({ register, isAuthenticated }) => {
 
 Register.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
+  register: PropTypes.func.isRequired,
+  createAlert: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.users.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { register })(Register);
+export default connect(mapStateToProps, { register, createAlert })(Register);

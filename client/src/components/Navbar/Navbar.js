@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import PropTypes from 'prop-types'
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import "./navbar.component.scss";
 
-const Navbar = () => {
+const Navbar = ({ isAuthenticated, loading }) => {
   const guestLinks = (
     <ul className="navigation">
       <li className="navigation__item">
@@ -23,24 +24,26 @@ const Navbar = () => {
       </li>
     </ul>
   );
-  // const authLinks = <ul className="navigation">
-  // <li className="navigation__item">
-  //   <Link className="navigation__item__link" to="/tasks">
-  //  <i className="fas fa-folder-open"></i>
-  //     Tasks
-  //   </Link>
-  // </li>
-  // <li className="navigation__item">
-  //   <Link className="navigation__item__link" to="/tasks">
-  //     <i className="fas fa-user-plus"></i> Contacts
-  //   </Link>
-  // </li>
-  // <li className="navigation__item">
-  //   <Link className="navigation__item__link" to="/logout">
-  //     Log out
-  //   </Link>
-  // </li>
-  // </ul>
+  const authLinks = (
+    <ul className="navigation">
+      <li className="navigation__item">
+        <Link className="navigation__item__link" to="/tasks">
+          <i className="fas fa-folder-open"></i>
+          Tasks
+        </Link>
+      </li>
+      <li className="navigation__item">
+        <Link className="navigation__item__link" to="/tasks">
+          <i className="fas fa-user-plus"></i> Contacts
+        </Link>
+      </li>
+      <li className="navigation__item">
+        <Link className="navigation__item__link" to="/logout">
+          Log out
+        </Link>
+      </li>
+    </ul>
+  );
 
   return (
     <nav className="navbar">
@@ -49,11 +52,19 @@ const Navbar = () => {
           <i className="fas fa-layer-group"></i> Keeper
         </Link>
       </h2>
-      {guestLinks}
+      {!loading && isAuthenticated ? authLinks : guestLinks}
     </nav>
   );
 };
 
-// Navbar.propTypes = {}
+Navbar.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
+};
 
-export default Navbar;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.users.isAuthenticated,
+  loading: state.users.loading,
+});
+
+export default connect(mapStateToProps)(Navbar);

@@ -21,7 +21,6 @@ const FormGroup = ({ name, handleChange, ...otherProps }) => {
         placeholder={nameCapitalized}
         className="form__group__input"
         onChange={handleChange}
-        required
         {...otherProps}
       />
       <label htmlFor={name} className="form__group__label">

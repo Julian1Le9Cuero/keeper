@@ -8,6 +8,7 @@ import {
   AUTH_ERROR,
 } from "./types";
 import { setAuthToken } from "../../utils/setAuthToken";
+import { createAlert } from "./alert";
 
 export const register = (formData) => async (dispatch) => {
   try {
@@ -26,6 +27,11 @@ export const register = (formData) => async (dispatch) => {
 
     dispatch(loadUser());
   } catch (error) {
+    const message = error.response.data.message;
+    message
+      .split(",")
+      .forEach((message) => dispatch(createAlert(message, "danger")));
+
     dispatch({
       type: REGISTER_ERROR,
       payload: error.response,
@@ -68,6 +74,11 @@ export const login = (formData) => async (dispatch) => {
 
     dispatch(loadUser());
   } catch (error) {
+    const message = error.response.data.message;
+    message
+      .split(",")
+      .forEach((message) => dispatch(createAlert(message, "danger")));
+
     dispatch({
       type: LOGIN_ERROR,
       payload: error.response,
