@@ -20,7 +20,7 @@ const Login = () => {
             </span>
           </h2>
         </div>
-        <form action="" className="register__form" autocomplete="off">
+        <form action="" className="register__form">
           <FormGroup name="email" type="email" handleChange={handleChange} />
           <FormGroup
             name="password"
@@ -35,7 +35,7 @@ const Login = () => {
           />
           <Button
             kind="link"
-            to="/login"
+            to="/register"
             className="btn btn-primary"
             content="Register"
           />

@@ -20,7 +20,7 @@ const Register = () => {
             </span>
           </h2>
         </div>
-        <form action="" className="register__form" autocomplete="off">
+        <form action="" className="register__form">
           <FormGroup name="name" type="text" handleChange={handleChange} />
           <FormGroup name="email" type="email" handleChange={handleChange} />
           <FormGroup

@@ -4,6 +4,44 @@ import { Link } from "react-router-dom";
 import "./navbar.component.scss";
 
 const Navbar = () => {
+  const guestLinks = (
+    <ul className="navigation">
+      <li className="navigation__item">
+        <Link className="navigation__item__link" to="/login">
+          <i className="fas fa-sign-in-alt"></i> Log in
+        </Link>
+      </li>
+      <li className="navigation__item">
+        <Link className="navigation__item__link" to="/register">
+          <i className="fas fa-door-open"></i> Register
+        </Link>
+      </li>
+      <li className="navigation__item">
+        <Link className="navigation__item__link" to="/about">
+          About
+        </Link>
+      </li>
+    </ul>
+  );
+  // const authLinks = <ul className="navigation">
+  // <li className="navigation__item">
+  //   <Link className="navigation__item__link" to="/tasks">
+  //  <i className="fas fa-folder-open"></i>
+  //     Tasks
+  //   </Link>
+  // </li>
+  // <li className="navigation__item">
+  //   <Link className="navigation__item__link" to="/tasks">
+  //     <i className="fas fa-user-plus"></i> Contacts
+  //   </Link>
+  // </li>
+  // <li className="navigation__item">
+  //   <Link className="navigation__item__link" to="/logout">
+  //     Log out
+  //   </Link>
+  // </li>
+  // </ul>
+
   return (
     <nav className="navbar">
       <h2 className="logo">
@@ -11,23 +49,7 @@ const Navbar = () => {
           <i className="fas fa-layer-group"></i> Keeper
         </Link>
       </h2>
-      <ul className="navigation">
-        <li className="navigation__item">
-          <Link className="navigation__item__link" to="/login">
-            Log in
-          </Link>
-        </li>
-        <li className="navigation__item">
-          <Link className="navigation__item__link" to="/tasks">
-            Tasks
-          </Link>
-        </li>
-        <li className="navigation__item">
-          <Link className="navigation__item__link" to="/tasks">
-            <i className="fas fa-user-plus"></i> Contacts
-          </Link>
-        </li>
-      </ul>
+      {guestLinks}
     </nav>
   );
 };
