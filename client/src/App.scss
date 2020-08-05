@@ -1,0 +1,55 @@
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Mukta", sans-serif;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  width: 100%;
+}
+// Utilities
+.container {
+  max-width: 1600px;
+  margin: auto;
+}
+
+@mixin bgc($col1, $col2) {
+  background-color: $col1;
+  color: $col2;
+}
+
+@mixin inverted($col1, $col2) {
+  @include bgc($col2, $col1);
+}
+
+.btn {
+  display: inline-block;
+  padding: 16px 48px;
+  border-radius: 3px;
+  transition: all 0.2s;
+
+  &-primary {
+    @include bgc(#6f4a8e, #fff);
+  }
+
+  &-inverted {
+    &:hover {
+      @include inverted(#6f4a8e, #fff);
+      border: 1px solid #6f4a8e;
+      padding: 15px 47px;
+    }
+  }
+}

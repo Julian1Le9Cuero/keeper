@@ -1,0 +1,36 @@
+$color-white: #fff;
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $color-white;
+  padding: 1rem 2rem;
+  border-bottom: 2px solid #000;
+
+  .logo {
+    &__link {
+      color: #848ccf;
+    }
+  }
+
+  .navigation {
+    display: flex;
+    &__item {
+      &:not(:last-child) {
+        margin-right: 30px;
+      }
+
+      &__link {
+        padding-bottom: 1.2rem;
+        color: #000;
+        font-weight: 500;
+        transition: all 0.2s;
+        &:hover {
+          color: #596e79;
+          border-bottom: 3px solid #6f4a8e;
+        }
+      }
+    }
+  }
+}

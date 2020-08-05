@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const TaskSchema = new mongoose.Schema({
   text: {
     type: String,
-    required: [true, "Please add the task description."],
+    required: [true, "Please add some text for the task."],
     trim: true,
     maxlength: [400, "The task text cannot be more than 400 characters"],
   },
@@ -22,4 +22,4 @@ const TaskSchema = new mongoose.Schema({
   },
 });
 
-module.exports = Task = mongoose.model('Task', TaskSchema);
+module.exports = Task = mongoose.model("Task", TaskSchema);
