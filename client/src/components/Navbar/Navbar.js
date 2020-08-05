@@ -8,7 +8,7 @@ const Navbar = () => {
     <nav className="navbar">
       <h2 className="logo">
         <Link className="logo__link" to="/">
-          <i class="fas fa-layer-group"></i> Keeper
+          <i className="fas fa-layer-group"></i> Keeper
         </Link>
       </h2>
       <ul className="navigation">

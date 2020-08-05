@@ -1,6 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "./landing.component.scss";
+
+import Button from "../Button/Button";
 
 const Landing = () => {
   return (
@@ -25,9 +26,12 @@ const Landing = () => {
                 take all of the heavy lifting.
               </p>
             </div>
-            <Link to="/register" className="btn btn-primary btn-inverted">
-              Create an account
-            </Link>
+            <Button
+              kind="link"
+              to="/register"
+              className="btn btn-primary btn-inverted"
+              content="Create an account"
+            />
           </div>
           <div className="landing__images">
             <img src="/img/main1.jpg" alt="Tasks" className="heading__image" />
