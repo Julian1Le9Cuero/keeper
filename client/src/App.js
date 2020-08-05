@@ -5,6 +5,7 @@ import "./App.scss";
 import Navbar from "./components/Navbar/Navbar";
 import Landing from "./components/Landing/Landing";
 import Register from "./components/Register/Register";
+import Login from "./components/Login/Login";
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
       <Switch>
         <Route exact path="/" component={Landing} />
         <Route exact path="/register" component={Register} />
+        <Route exact path="/login" component={Login} />
       </Switch>
     </Router>
   );
