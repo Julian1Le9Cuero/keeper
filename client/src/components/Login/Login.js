@@ -1,12 +1,30 @@
-import React from "react";
-// import PropTypes from "prop-types";
+import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import FormGroup from "../FormGroup/FormGroup";
 import Button from "../Button/Button";
 import "./login.component.scss";
 
-const Login = () => {
+import { login } from "../../redux/actions/users";
+
+const Login = ({ login, isAuthenticated }) => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  if (isAuthenticated) {
+    return <Redirect to="/contacts" />;
+  }
+
   const handleChange = (e) => {
-    console.log(e);
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    login(formData);
   };
 
   return (
@@ -20,12 +38,18 @@ const Login = () => {
             </span>
           </h2>
         </div>
-        <form action="" className="register__form">
-          <FormGroup name="email" type="email" handleChange={handleChange} />
+        <form action="" className="register__form" onSubmit={handleSubmit}>
+          <FormGroup
+            name="email"
+            type="email"
+            handleChange={handleChange}
+            required
+          />
           <FormGroup
             name="password"
             type="password"
             handleChange={handleChange}
+            required
           />
           <Button
             kind="button"
@@ -46,6 +70,12 @@ const Login = () => {
   );
 };
 
-// Login.propTypes = {};
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+};
 
-export default Login;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.users.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { login })(Login);

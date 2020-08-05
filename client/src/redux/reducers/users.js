@@ -11,6 +11,7 @@ const initialState = {
   user: null,
   loading: true,
   error: null,
+  isAuthenticated: false,
 };
 
 const users = (state = initialState, action) => {
@@ -23,11 +24,13 @@ const users = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+        isAuthenticated: true,
       };
     case LOAD_USER:
       return {
         ...state,
         user: payload,
+        isAuthenticated: true,
       };
     case REGISTER_ERROR:
     case LOGIN_ERROR:
@@ -36,6 +39,9 @@ const users = (state = initialState, action) => {
       return {
         ...state,
         error: payload,
+        loading: true,
+        isAuthenticated: false,
+        user: null,
       };
     default:
       return state;

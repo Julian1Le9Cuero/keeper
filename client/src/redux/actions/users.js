@@ -7,12 +7,13 @@ import {
   LOGIN_ERROR,
   AUTH_ERROR,
 } from "./types";
+import { setAuthToken } from "../../utils/setAuthToken";
 
 export const register = (formData) => async (dispatch) => {
   try {
     const config = {
       headers: {
-        "Content/Type": "application/json",
+        "Content-Type": "application/json",
       },
     };
 
@@ -33,6 +34,8 @@ export const register = (formData) => async (dispatch) => {
 };
 
 export const loadUser = () => async (dispatch) => {
+  setAuthToken(localStorage.getItem("token"));
+
   try {
     const res = await axios.get("/api/users/me");
 
@@ -52,7 +55,7 @@ export const login = (formData) => async (dispatch) => {
   try {
     const config = {
       headers: {
-        "Content/Type": "application/json",
+        "Content-Type": "application/json",
       },
     };
 
