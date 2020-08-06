@@ -4,7 +4,9 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import "./navbar.component.scss";
 
-const Navbar = ({ isAuthenticated, loading }) => {
+import { logout } from "../../redux/actions/users";
+
+const Navbar = ({ isAuthenticated, loading, logout }) => {
   const guestLinks = (
     <ul className="navigation">
       <li className="navigation__item">
@@ -38,7 +40,7 @@ const Navbar = ({ isAuthenticated, loading }) => {
         </Link>
       </li>
       <li className="navigation__item">
-        <Link className="navigation__item__link" to="/logout">
+        <Link className="navigation__item__link" to="/logout" onClick={logout}>
           Log out
         </Link>
       </li>
@@ -60,6 +62,7 @@ const Navbar = ({ isAuthenticated, loading }) => {
 Navbar.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
+  logout: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -67,4 +70,4 @@ const mapStateToProps = (state) => ({
   loading: state.users.loading,
 });
 
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps, { logout })(Navbar);

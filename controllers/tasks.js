@@ -18,7 +18,7 @@ exports.addTask = asyncHandler(async (req, res, next) => {
 // @route: GET - /api/users/tasks
 // @access: Private
 exports.getTasks = asyncHandler(async (req, res, next) => {
-  const tasks = await Task.find({ user: req.user.id });
+  const tasks = await Task.find({ user: req.user.id }).sort("createdAt");
 
   res.status(200).json({
     count: tasks.length,

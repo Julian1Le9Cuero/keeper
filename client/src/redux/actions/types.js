@@ -6,3 +6,7 @@ export const LOGIN_ERROR = "LOGIN_ERROR";
 export const AUTH_ERROR = "AUTH_ERROR";
 export const SEND_ALERT = "SEND_ALERT";
 export const REMOVE_ALERT = "REMOVE_ALERT";
+export const LOGOUT = "LOGOUT";
+export const GET_TASKS = "GET_TASKS";
+export const REMOVE_TASK = "REMOVE_TASK";
+export const TASK_ERROR = "TASK_ERROR";

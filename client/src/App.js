@@ -7,6 +7,8 @@ import Navbar from "./components/Navbar/Navbar";
 import Landing from "./components/Landing/Landing";
 import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
+import Tasks from "./components/Tasks/Tasks";
+import ManageTasks from "./components/ManageTasks/ManageTasks";
 
 // Redux
 import store from "./redux/store";
@@ -30,6 +32,8 @@ const App = () => {
           <Route exact path="/" component={Landing} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/tasks" component={Tasks} />
+          <Route exact path="/manage-tasks" component={ManageTasks} />
         </Switch>
       </Router>
     </Provider>

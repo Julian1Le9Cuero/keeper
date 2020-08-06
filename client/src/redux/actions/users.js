@@ -6,6 +6,7 @@ import {
   REGISTER_ERROR,
   LOGIN_ERROR,
   AUTH_ERROR,
+  LOGOUT,
 } from "./types";
 import { setAuthToken } from "../../utils/setAuthToken";
 import { createAlert } from "./alert";
@@ -81,6 +82,21 @@ export const login = (formData) => async (dispatch) => {
 
     dispatch({
       type: LOGIN_ERROR,
+      payload: error.response,
+    });
+  }
+};
+
+export const logout = () => async (dispatch) => {
+  setAuthToken("");
+
+  try {
+    dispatch({
+      type: LOGOUT,
+    });
+  } catch (error) {
+    dispatch({
+      type: AUTH_ERROR,
       payload: error.response,
     });
   }

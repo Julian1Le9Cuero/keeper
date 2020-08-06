@@ -16,9 +16,9 @@ const Login = ({ login, isAuthenticated }) => {
     password: "",
   });
 
-  // if (isAuthenticated) {
-  //   return <Redirect to="/contacts" />;
-  // }
+  if (isAuthenticated) {
+    return <Redirect to="/contacts" />;
+  }
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
