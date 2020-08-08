@@ -1,0 +1,31 @@
+.tasks {
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &__img {
+    height: 300px;
+    max-width: 300px;
+    margin-right: 40px;
+    box-shadow: 10px 10px 5px rgba(#000, 0.1);
+    transition: all 0.25s;
+    &:hover {
+      padding: 5px;
+      outline: 5px solid #848ccf;
+    }
+  }
+  &__content {
+    display: flex;
+    width: 80%;
+    &__text {
+      &__paragraph {
+        font-size: 1.3rem;
+      }
+      &__button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+}

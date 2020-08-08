@@ -1,15 +1,25 @@
 const mongoose = require("mongoose");
 
 const TaskSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: [true, "Please add the task title."],
+    trim: true,
+    maxlength: [100, "The task text cannot be more than 100 characters"],
+  },
   text: {
     type: String,
-    required: [true, "Please add some text for the task."],
     trim: true,
-    maxlength: [400, "The task text cannot be more than 400 characters"],
+    maxlength: [200, "The task text cannot be more than 200 characters"],
   },
   completed: {
     type: Boolean,
     default: false,
+  },
+  level: {
+    type: String,
+    enum: ["important", "normal", "urgent"],
+    default: "Normal",
   },
   user: {
     type: mongoose.Types.ObjectId,

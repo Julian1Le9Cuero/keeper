@@ -30,8 +30,9 @@ const Landing = () => {
               kind="link"
               to="/register"
               className="btn btn-primary btn-inverted"
-              content="Create an account"
-            />
+            >
+              Create an account
+            </Button>
           </div>
           <div className="landing__images">
             <img src="/img/main1.jpg" alt="Tasks" className="heading__image" />

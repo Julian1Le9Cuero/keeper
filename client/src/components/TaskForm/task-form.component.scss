@@ -1,0 +1,75 @@
+.form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(#000, 0.7);
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+.form-modal {
+  background-color: #b2ebf2;
+  height: 65%;
+  width: 25%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 30px;
+  border-radius: 10px;
+  animation: moveDown 1s;
+  transition: moveDown 3s ease;
+  &__close {
+    position: absolute;
+    top: 0;
+    right: 30px;
+    font-size: 2rem;
+    cursor: pointer;
+    &:hover {
+      color: red;
+    }
+  }
+  .task-form {
+    &__group {
+      padding: 10px 0 20px 0;
+      &__label {
+        display: block;
+        font-size: 1.1rem;
+      }
+
+      &__input,
+      &__text,
+      &__level {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 4px;
+        color: #999;
+        font-size: 1rem;
+        border: none;
+        outline: none;
+        &::placeholder {
+          color: #999;
+          font-family: "Mukta", sans-serif;
+        }
+        &:focus {
+          outline: 2px solid #333;
+        }
+      }
+    }
+  }
+}
+
+@keyframes moveDown {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -100%);
+  }
+  60% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-50%, 0);
+  }
+}

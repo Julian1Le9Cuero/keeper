@@ -35,7 +35,7 @@ const Navbar = ({ isAuthenticated, loading, logout }) => {
         </Link>
       </li>
       <li className="navigation__item">
-        <Link className="navigation__item__link" to="/tasks">
+        <Link className="navigation__item__link" to="/contacts">
           <i className="fas fa-user-plus"></i> Contacts
         </Link>
       </li>
@@ -48,7 +48,7 @@ const Navbar = ({ isAuthenticated, loading, logout }) => {
   );
 
   return (
-    <nav className="navbar">
+    <nav className="navbar separate">
       <h2 className="logo">
         <Link className="logo__link" to="/">
           <i className="fas fa-layer-group"></i> Keeper

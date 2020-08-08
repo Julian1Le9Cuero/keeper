@@ -87,6 +87,26 @@ export const login = (formData) => async (dispatch) => {
   }
 };
 
+export const googleLogin = () => async (dispatch) => {
+  try {
+    console.log("googleLogin");
+    const res = await axios.get("/api/users/auth/google");
+    console.log(res.data);
+    // dispatch({
+    //   type: LOGIN_SUCCESS,
+    // });
+  } catch (error) {
+    console.log(error);
+    dispatch(
+      createAlert("Google auth error, try again later.", "danger", 4000)
+    );
+    dispatch({
+      type: AUTH_ERROR,
+      payload: error.response,
+    });
+  }
+};
+
 export const logout = () => async (dispatch) => {
   setAuthToken("");
 

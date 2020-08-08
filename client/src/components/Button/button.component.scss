@@ -17,12 +17,23 @@
   cursor: pointer;
   outline: none;
   border: none;
-  margin-right: 1rem;
+  &:not(:last-child) {
+    margin-right: 1rem;
+  }
+
   &-primary {
     @include bgc(#6f4a8e, #fff);
     &:hover {
       opacity: 0.9;
     }
+  }
+
+  &-medium {
+    padding: 0.7rem 1.7rem;
+  }
+
+  &-small {
+    padding: 0.4rem 1.2rem;
   }
 
   &-primary.btn-inverted {
@@ -31,5 +42,20 @@
       @include inverted(#6f4a8e, #fff);
       border: 1px solid #6f4a8e;
     }
+  }
+
+  &-secondary {
+    @include bgc(#848ccf, #fff);
+    &:hover {
+      @include bgc(rgba(#848ccf, 0.9), #fff);
+    }
+  }
+
+  &-danger {
+    @include bgc(#dd2c00, #fff);
+  }
+
+  &-success {
+    @include bgc(#a8df65, #fff);
   }
 }

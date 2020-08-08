@@ -48,18 +48,20 @@ const Login = ({ login, isAuthenticated }) => {
             type="password"
             handleChange={handleChange}
           />
-          <Button
+          <Button kind="button" type="submit" className="btn btn-primary">
+            Login
+          </Button>
+          <Button kind="link" to="/register" className="btn btn-primary">
+            Register
+          </Button>
+          {/* <Button
             kind="button"
-            type="submit"
+            type="button"
             className="btn btn-primary"
-            content="Login"
-          />
-          <Button
-            kind="link"
-            to="/register"
-            className="btn btn-primary"
-            content="Register"
-          />
+            onClick={() => googleLogin()}
+          >
+            Login with Google
+          </Button> */}
           {/* <span>Ready to join?</span> */}
         </form>
       </div>

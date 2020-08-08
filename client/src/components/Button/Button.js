@@ -2,11 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./button.component.scss";
 
-const Button = ({ kind, content, ...otherProps }) => {
+const Button = ({ kind, children, ...otherProps }) => {
   return kind === "link" ? (
-    <Link {...otherProps}>{content}</Link>
+    <Link {...otherProps}>{children}</Link>
   ) : (
-    <button {...otherProps}>{content}</button>
+    <button {...otherProps}>{children}</button>
   );
 };
 
