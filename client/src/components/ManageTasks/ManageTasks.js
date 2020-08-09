@@ -1,16 +1,21 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import "./manage-tasks.component.scss";
 import Button from "../Button/Button";
 import Task from "../Task/Task";
+import Spinner from "../Spinner/Spinner";
 import { getTasks } from "../../redux/actions/tasks";
 
-const ManageTasks = ({ getTasks, userTasks }) => {
+const ManageTasks = ({ getTasks, userTasks, tasksLoading }) => {
   useEffect(() => {
     getTasks();
-  }, []);
+  }, [getTasks]);
+
+  if (!tasksLoading && userTasks.length === 0) {
+    return <Redirect to="/tasks" />;
+  }
 
   return (
     <section className="manage-tasks">
@@ -49,8 +54,11 @@ const ManageTasks = ({ getTasks, userTasks }) => {
           </p>
         </div>
         <div className="tasks-content">
-          {userTasks.length > 0 &&
-            userTasks.map((task) => <Task key={task._id} task={task} />)}
+          {tasksLoading ? (
+            <Spinner />
+          ) : (
+            userTasks.map((task) => <Task key={task._id} task={task} />)
+          )}
         </div>
       </div>
     </section>
@@ -59,10 +67,12 @@ const ManageTasks = ({ getTasks, userTasks }) => {
 
 ManageTasks.propTypes = {
   getTasks: PropTypes.func.isRequired,
+  tasksLoading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   userTasks: state.tasks.userTasks,
+  tasksLoading: state.tasks.tasksLoading,
 });
 
 export default connect(mapStateToProps, { getTasks })(ManageTasks);

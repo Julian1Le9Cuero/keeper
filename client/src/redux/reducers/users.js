@@ -32,6 +32,7 @@ const users = (state = initialState, action) => {
         ...state,
         user: payload,
         isAuthenticated: true,
+        loading: false,
       };
     case REGISTER_ERROR:
     case LOGIN_ERROR:
@@ -40,7 +41,7 @@ const users = (state = initialState, action) => {
       return {
         ...state,
         error: payload,
-        loading: true,
+        loading: false,
         isAuthenticated: false,
         user: null,
       };

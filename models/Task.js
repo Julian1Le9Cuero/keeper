@@ -10,11 +10,7 @@ const TaskSchema = new mongoose.Schema({
   text: {
     type: String,
     trim: true,
-    maxlength: [200, "The task text cannot be more than 200 characters"],
-  },
-  completed: {
-    type: Boolean,
-    default: false,
+    maxlength: [300, "The task text cannot be more than 300 characters"],
   },
   level: {
     type: String,
@@ -30,6 +26,14 @@ const TaskSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+  updatedAt: {
+    type: Date,
+  },
+});
+
+TaskSchema.pre("save", function (next) {
+  this.updatedAt = Date.now();
+  next();
 });
 
 module.exports = Task = mongoose.model("Task", TaskSchema);

@@ -7,6 +7,7 @@ import {
   TASK_ERROR,
 } from "./types";
 import { generateConfig } from "../../utils/generateConfig";
+import { createAlert } from "./alert";
 
 // Get tasks by user
 export const getTasks = () => async (dispatch) => {
@@ -19,41 +20,44 @@ export const getTasks = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: TASK_ERROR,
-      payload: res.data,
+      payload: error.response,
     });
   }
 };
 
 // Add new task
-export const addTask = (taskData) => async (dispatch) => {
+export const addTask = (taskData, history) => async (dispatch) => {
   try {
     const config = generateConfig();
+
     await axios.post("/api/users/tasks", taskData, config);
 
-    dispatch({
-      type: GET_TASKS,
-    });
+    history.push("/manage-tasks");
   } catch (error) {
+    const message = error.response.data.message;
+    message
+      .split(",")
+      .forEach((message) => dispatch(createAlert(message, "danger")));
+
     dispatch({
       type: TASK_ERROR,
-      payload: res.data,
+      payload: error.response,
     });
   }
 };
 
-export const updateTask = (taskId, taskData) => async (dispatch) => {
+export const updateTask = (taskId, taskData, history) => async (dispatch) => {
   try {
     const config = generateConfig();
 
     await axios.put(`/api/tasks/${taskId}`, taskData, config);
 
-    dispatch({
-      type: GET_TASKS,
-    });
+    history.push("/manage-tasks");
+    createAlert("Task updated", "success", 3000);
   } catch (error) {
     dispatch({
       type: TASK_ERROR,
-      payload: res.data,
+      payload: error.response,
     });
   }
 };
@@ -69,36 +73,31 @@ export const deleteTask = (taskId) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: TASK_ERROR,
-      payload: res.data,
+      payload: error.response,
     });
   }
 };
 
 //  find task
-export const findTask = (taskId) => async (dispatch) => {
+export const findTask = (taskId, history) => (dispatch) => {
   try {
     dispatch({
       type: GET_TASK,
       payload: taskId,
     });
+
+    history.push("/add-task");
   } catch (error) {
     dispatch({
       type: TASK_ERROR,
-      payload: res.data,
+      payload: `Invalid id ${taskId}`,
     });
   }
 };
 
 //Clear task
-export const clearTask = () => async (dispatch) => {
-  try {
-    dispatch({
-      type: CLEAR_TASK,
-    });
-  } catch (error) {
-    dispatch({
-      type: TASK_ERROR,
-      payload: res.data,
-    });
-  }
+export const clearTask = () => (dispatch) => {
+  dispatch({
+    type: CLEAR_TASK,
+  });
 };

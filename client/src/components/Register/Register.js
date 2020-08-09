@@ -76,18 +76,12 @@ const Register = ({ register, isAuthenticated, createAlert }) => {
             handleChange={handleChange}
             value={password2}
           />
-          <Button
-            kind="button"
-            type="submit"
-            className="btn btn-primary"
-            content="Register"
-          />
-          <Button
-            kind="link"
-            to="/login"
-            className="btn btn-primary"
-            content="Login"
-          />
+          <Button kind="button" type="submit" className="btn btn-primary">
+            Register
+          </Button>
+          <Button kind="link" to="/login" className="btn btn-primary">
+            Login
+          </Button>
           {/* <span>Already a member?</span> */}
         </form>
       </div>

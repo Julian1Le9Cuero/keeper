@@ -5,7 +5,7 @@ import "./alert.component.scss";
 
 const Alert = ({ alerts }) => {
   return alerts.map(({ type, id, message }) => (
-    <div key={id} className={`alert alert-${type}`}>
+    <div key={id} className={`alert alert-${type} margin-top-small`}>
       {message}
     </div>
   ));

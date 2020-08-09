@@ -17,7 +17,7 @@ const Login = ({ login, isAuthenticated }) => {
   });
 
   if (isAuthenticated) {
-    return <Redirect to="/contacts" />;
+    return <Redirect to="/manage-tasks" />;
   }
 
   const handleChange = (e) => {

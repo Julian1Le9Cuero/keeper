@@ -19,7 +19,7 @@ const tasks = (state = INITIAL_STATE, action) => {
     case GET_TASKS:
       return {
         ...state,
-        userTasks: payload,
+        userTasks: payload.tasks,
         tasksLoading: false,
       };
     case GET_TASK:

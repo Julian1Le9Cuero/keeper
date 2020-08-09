@@ -1,37 +1,52 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import "./task.component.scss";
 import { findTask, deleteTask } from "../../redux/actions/tasks";
 
-const Task = ({ findTask, deleteTask, task }) => {
+const Task = ({ findTask, deleteTask, task, history }) => {
+  const { _id, title, level, text, createdAt, updatedAt } = task;
   console.log(task);
+  const diff = Date.now() - new Date(createdAt);
+
   const [completed, setCompleted] = useState(false);
 
   const handleComplete = (_id) => {
     setCompleted(true);
-    //  Dispatch action to update as completed and delete after 10mins
+    deleteTask(_id);
   };
+
   return (
-    <div className="task task-urgent">
+    <div className={`task task-${level}`}>
       <div className="task__header separate">
-        <h5 className={`task__title ${completed && "completed"}`}>
-          Clean bedroom Lorem ipsum dolor, sit amet consectetur adipisicing
-          elit. Temporibus laborum provident molestiae enim odit maxime vero
-          corrupti sunt doloremque consequatur?
-        </h5>
+        <h5 className={`task__title ${completed && "completed"}`}>{title}</h5>
         <div className="task__icons">
-          {!completed && <i className="fas fa-marker task__icons-1"></i>}{" "}
-          <i className="fas fa-trash task__icons-2"></i>
+          {!completed && (
+            <i
+              className="fas fa-marker task__icons-1"
+              onClick={() => findTask(_id, history)}
+            ></i>
+          )}{" "}
+          <i
+            className="fas fa-trash task__icons-2"
+            onClick={() => deleteTask(_id)}
+          ></i>
         </div>
       </div>
       <div className="task__description">
-        <p className={`task__description__text ${completed && "completed"}`}>
-          Organize books, shoes, bed and move trash
-        </p>
+        {text && (
+          <p className={`task__description__text ${completed && "completed"}`}>
+            {text}
+          </p>
+        )}
         {!completed && (
           <small className="task__description__update">
-            Last update: 2 mins ago
+            Last update:{" "}
+            {new Date(diff).getMinutes() < 60
+              ? `${new Date(diff).getMinutes()} mins`
+              : "more than an hour"}{" "}
+            ago
           </small>
         )}
       </div>
@@ -43,7 +58,7 @@ const Task = ({ findTask, deleteTask, task }) => {
           id="completed"
           checked={completed}
           disabled={completed}
-          onChange={handleComplete}
+          onChange={() => handleComplete(_id)}
         />{" "}
         <label htmlFor="completed" className="task__completed__label">
           Mark as {completed ? "uncompleted" : "completed"}
@@ -56,6 +71,8 @@ const Task = ({ findTask, deleteTask, task }) => {
 Task.propTypes = {
   findTask: PropTypes.func.isRequired,
   deleteTask: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
+  task: PropTypes.object.isRequired,
 };
 
-export default connect(null, { findTask, deleteTask })(Task);
+export default connect(null, { findTask, deleteTask })(withRouter(Task));
