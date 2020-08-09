@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import "./manage-tasks.component.scss";
 import Button from "../Button/Button";
 import Task from "../Task/Task";
+import { getTasks } from "../../redux/actions/tasks";
 
-const ManageTasks = () => {
+const ManageTasks = ({ getTasks, userTasks }) => {
+  useEffect(() => {
+    getTasks();
+  }, []);
+
   return (
     <section className="manage-tasks">
       <div className="container margin-top-big p-3">
@@ -42,12 +49,20 @@ const ManageTasks = () => {
           </p>
         </div>
         <div className="tasks-content">
-          <Task />
-          <Task />
+          {userTasks.length > 0 &&
+            userTasks.map((task) => <Task key={task._id} task={task} />)}
         </div>
       </div>
     </section>
   );
 };
 
-export default ManageTasks;
+ManageTasks.propTypes = {
+  getTasks: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  userTasks: state.tasks.userTasks,
+});
+
+export default connect(mapStateToProps, { getTasks })(ManageTasks);

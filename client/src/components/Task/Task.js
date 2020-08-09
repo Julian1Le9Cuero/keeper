@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-// import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import "./task.component.scss";
+import { findTask, deleteTask } from "../../redux/actions/tasks";
 
-const Task = () => {
+const Task = ({ findTask, deleteTask, task }) => {
+  console.log(task);
   const [completed, setCompleted] = useState(false);
 
   const handleComplete = (_id) => {
@@ -50,6 +53,9 @@ const Task = () => {
   );
 };
 
-// Task.propTypes = {}
+Task.propTypes = {
+  findTask: PropTypes.func.isRequired,
+  deleteTask: PropTypes.func.isRequired,
+};
 
-export default Task;
+export default connect(null, { findTask, deleteTask })(Task);

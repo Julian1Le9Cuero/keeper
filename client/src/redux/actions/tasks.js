@@ -1,5 +1,11 @@
 import axios from "axios";
-import { GET_TASKS, REMOVE_TASK, TASK_ERROR } from "./types";
+import {
+  GET_TASKS,
+  GET_TASK,
+  REMOVE_TASK,
+  CLEAR_TASK,
+  TASK_ERROR,
+} from "./types";
 import { generateConfig } from "../../utils/generateConfig";
 
 // Get tasks by user
@@ -59,6 +65,35 @@ export const deleteTask = (taskId) => async (dispatch) => {
     dispatch({
       type: REMOVE_TASK,
       payload: taskId,
+    });
+  } catch (error) {
+    dispatch({
+      type: TASK_ERROR,
+      payload: res.data,
+    });
+  }
+};
+
+//  find task
+export const findTask = (taskId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: GET_TASK,
+      payload: taskId,
+    });
+  } catch (error) {
+    dispatch({
+      type: TASK_ERROR,
+      payload: res.data,
+    });
+  }
+};
+
+//Clear task
+export const clearTask = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: CLEAR_TASK,
     });
   } catch (error) {
     dispatch({

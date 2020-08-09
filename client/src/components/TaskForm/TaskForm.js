@@ -1,10 +1,41 @@
-import React from "react";
-// import PropTypes from 'prop-types'
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import "./task-form.component.scss";
 import Button from "../Button/Button";
+import { addTask, clearTask } from "../../redux/actions/tasks";
 
-const TaskForm = ({ history }) => {
+const TaskForm = ({ history, addTask, clearTask }) => {
+  useEffect(() => {
+    return () => {
+      clearTask();
+    };
+  });
+  const [formData, setFormData] = useState({
+    title: "",
+    text: "",
+    level: "",
+  });
+
   const closeForm = () => history.push("/tasks");
+  // Clear task after component mounts and load task after user wants to edit one
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    addTask(formData);
+    setFormData({
+      title: "",
+      text: "",
+      level: "",
+    });
+  };
+
+  const { title, text } = formData;
 
   return (
     <div className="form-overlay">
@@ -12,7 +43,7 @@ const TaskForm = ({ history }) => {
         <span className="form-modal__close" onClick={closeForm}>
           &times;
         </span>
-        <form className="task-form">
+        <form className="task-form" onSubmit={handleSubmit}>
           <div className="task-form__group">
             <label htmlFor="title" className="task-form__group__label">
               Title*
@@ -21,10 +52,11 @@ const TaskForm = ({ history }) => {
               name="title"
               type="text"
               id="title"
-              //   value=""
-              placeholder="Task Title"
-              required
               className="task-form__group__input"
+              placeholder="Task Title"
+              value={title}
+              onChange={handleChange}
+              required
             />
           </div>
           <div className="task-form__group">
@@ -33,19 +65,25 @@ const TaskForm = ({ history }) => {
             </label>
             <textarea
               name="text"
-              //   value=""
               id="text"
+              className="task-form__group__text"
               cols="40"
               rows="15"
-              className="task-form__group__text"
               placeholder="Add some text for the task"
+              value={text}
+              onChange={handleChange}
             ></textarea>
           </div>
           <div className="task-form__group">
             <label htmlFor="level" className="task-form__group__label">
               Level of importance (optional)
             </label>
-            <select name="level" id="level" className="task-form__group__level">
+            <select
+              name="level"
+              id="level"
+              className="task-form__group__level"
+              onChange={handleChange}
+            >
               <option defaultValue value="normal">
                 Normal
               </option>
@@ -69,13 +107,19 @@ const TaskForm = ({ history }) => {
               Create task
             </Button>
           </div>
-          {/* add Completed checkbox after task is created */}
         </form>
       </div>
     </div>
   );
 };
 
-// TaskForm.propTypes = {}
+TaskForm.propTypes = {
+  addTask: PropTypes.func.isRequired,
+  clearTask: PropTypes.func.isRequired,
+};
 
-export default TaskForm;
+const mapStateToProps = (state) => ({
+  task: state.tasks.task,
+});
+
+export default connect(mapStateToProps, { addTask, clearTask })(TaskForm);
