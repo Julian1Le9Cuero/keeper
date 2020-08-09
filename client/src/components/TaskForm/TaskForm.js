@@ -6,17 +6,17 @@ import "./task-form.component.scss";
 import Button from "../Button/Button";
 import Alert from "../Alert/Alert";
 
-import { addTask, updateTask } from "../../redux/actions/tasks";
+import { addTask, updateTask, clearTask } from "../../redux/actions/tasks";
 import { createAlert } from "../../redux/actions/alert";
 
 class TaskForm extends React.Component {
   constructor() {
-    super()
+    super();
     this.state = {
       taskData: {
         title: "",
         text: "",
-        level: "",
+        level: "normal",
       },
       numCharacters: 0,
     };
@@ -33,12 +33,19 @@ class TaskForm extends React.Component {
         }
       }
       // Load task if user wants to update one
-      this.setState({ taskData: taskFields });
+      this.setState({
+        taskData: taskFields,
+        numCharacters: taskFields.text.length,
+      });
     }
   }
 
+  componentWillUnmount() {
+    this.props.clearTask();
+  }
+
   render() {
-    const { history, addTask, createAlert, task } = this.props;
+    const { addTask, updateTask, createAlert, task, history } = this.props;
 
     const closeForm = () => history.push("/manage-tasks");
     const { taskData, numCharacters } = this.state;
@@ -50,7 +57,7 @@ class TaskForm extends React.Component {
         this.setState({ numCharacters: value.length });
       }
 
-      this.setState({ [name]: value });
+      this.setState({ taskData: { ...taskData, [name]: value } });
     };
 
     const handleSubmit = (e) => {
@@ -61,7 +68,7 @@ class TaskForm extends React.Component {
       }
 
       if (task) {
-        updateTask(taskData, history);
+        updateTask(task._id, taskData, history);
       } else {
         addTask(taskData, history);
       }
@@ -126,9 +133,11 @@ class TaskForm extends React.Component {
                 id="level"
                 className="task-form__group__level"
                 onChange={handleChange}
-                value={level ? level : "normal"}
+                value={level}
               >
-                <option value="normal">Normal</option>
+                <option defaultValue value="normal">
+                  Normal
+                </option>
                 <option value="important">Important</option>
                 <option value="urgent">Life or Death</option>
               </select>
@@ -146,7 +155,7 @@ class TaskForm extends React.Component {
                 type="submit"
                 className="btn btn-small btn-success"
               >
-                Create task
+                {task ? "Update" : "Create"} task
               </Button>
             </div>
           </form>
@@ -158,13 +167,20 @@ class TaskForm extends React.Component {
 
 TaskForm.propTypes = {
   addTask: PropTypes.func.isRequired,
+  updateTask: PropTypes.func.isRequired,
+  clearTask: PropTypes.func.isRequired,
   createAlert: PropTypes.func.isRequired,
+  task: PropTypes.object,
   history: PropTypes.object.isRequired,
-  task: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   task: state.tasks.task,
 });
 
-export default connect(mapStateToProps, { addTask, createAlert })(TaskForm);
+export default connect(mapStateToProps, {
+  addTask,
+  createAlert,
+  clearTask,
+  updateTask,
+})(TaskForm);
