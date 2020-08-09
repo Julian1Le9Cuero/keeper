@@ -1,10 +1,17 @@
 import React from "react";
-// import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 import "./tasks.component.scss";
 
 import Button from "../Button/Button";
 
-const Tasks = () => {
+const Tasks = ({ user, userTasks }) => {
+  // Check if user has any task or has just added some
+  if (user.tasks.length > 0 && userTasks.length > 0) {
+    return <Redirect to="/manage-tasks" />;
+  }
+
   return (
     <section className="tasks">
       <div className="container">
@@ -30,6 +37,14 @@ const Tasks = () => {
   );
 };
 
-// Tasks.propTypes = {}
+Tasks.propTypes = {
+  user: PropTypes.object.isRequired,
+  userTasks: PropTypes.array.isRequired,
+};
 
-export default Tasks;
+const mapStateToProps = (state) => ({
+  user: state.users.user,
+  userTasks: state.tasks.userTasks,
+});
+
+export default connect(mapStateToProps)(Tasks);

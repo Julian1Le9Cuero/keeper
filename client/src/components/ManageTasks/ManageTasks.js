@@ -3,8 +3,10 @@ import PropTypes from "prop-types";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import "./manage-tasks.component.scss";
+
 import Button from "../Button/Button";
 import Task from "../Task/Task";
+import Alert from "../Alert/Alert";
 import Spinner from "../Spinner/Spinner";
 import { getTasks } from "../../redux/actions/tasks";
 
@@ -17,7 +19,9 @@ const ManageTasks = ({ getTasks, userTasks, tasksLoading }) => {
     return <Redirect to="/tasks" />;
   }
 
-  return (
+  return tasksLoading ? (
+    <Spinner />
+  ) : (
     <section className="manage-tasks">
       <div className="container margin-top-big p-3">
         <div className="separate">
@@ -41,6 +45,7 @@ const ManageTasks = ({ getTasks, userTasks, tasksLoading }) => {
           </div>
         </div>
         <div className="text-center margin-top-medium margin-bottom-medium">
+          <Alert />
           <h2 className="heading-secondary margin-bottom-small">
             Manage tasks
           </h2>
@@ -54,11 +59,9 @@ const ManageTasks = ({ getTasks, userTasks, tasksLoading }) => {
           </p>
         </div>
         <div className="tasks-content">
-          {tasksLoading ? (
-            <Spinner />
-          ) : (
-            userTasks.map((task) => <Task key={task._id} task={task} />)
-          )}
+          {userTasks.map((task) => (
+            <Task key={task._id} task={task} />
+          ))}
         </div>
       </div>
     </section>

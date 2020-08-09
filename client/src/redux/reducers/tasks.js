@@ -25,7 +25,7 @@ const tasks = (state = INITIAL_STATE, action) => {
     case GET_TASK:
       return {
         ...state,
-        task: state.userTasks.filter((task) => task._id.toString() !== payload),
+        task: state.userTasks.find((task) => task._id.toString() === payload),
         tasksLoading: false,
       };
     case CLEAR_TASK:

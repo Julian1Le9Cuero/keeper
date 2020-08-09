@@ -29,7 +29,7 @@ const Navbar = ({ isAuthenticated, loading, logout }) => {
   const authLinks = (
     <ul className="navigation">
       <li className="navigation__item">
-        <Link className="navigation__item__link" to="/tasks">
+        <Link className="navigation__item__link" to="/manage-tasks">
           <i className="fas fa-folder-open"></i>
           Tasks
         </Link>

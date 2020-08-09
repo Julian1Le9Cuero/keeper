@@ -6,9 +6,10 @@ import "./task.component.scss";
 import { findTask, deleteTask } from "../../redux/actions/tasks";
 
 const Task = ({ findTask, deleteTask, task, history }) => {
-  const { _id, title, level, text, createdAt, updatedAt } = task;
-  console.log(task);
-  const diff = Date.now() - new Date(createdAt);
+  const { _id, title, level, text, updatedAt } = task;
+
+  let lastUpdate = Date.now() - new Date(updatedAt);
+  lastUpdate = new Date(lastUpdate).getMinutes();
 
   const [completed, setCompleted] = useState(false);
 
@@ -43,10 +44,7 @@ const Task = ({ findTask, deleteTask, task, history }) => {
         {!completed && (
           <small className="task__description__update">
             Last update:{" "}
-            {new Date(diff).getMinutes() < 60
-              ? `${new Date(diff).getMinutes()} mins`
-              : "more than an hour"}{" "}
-            ago
+            {lastUpdate < 60 ? `${lastUpdate} mins` : "more than an hour"} ago
           </small>
         )}
       </div>

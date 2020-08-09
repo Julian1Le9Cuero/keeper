@@ -46,14 +46,23 @@ export const addTask = (taskData, history) => async (dispatch) => {
   }
 };
 
+// Clear task after a task is updated
+export const clearTask = () => (dispatch) => {
+  dispatch({
+    type: CLEAR_TASK,
+  });
+};
+
 export const updateTask = (taskId, taskData, history) => async (dispatch) => {
   try {
     const config = generateConfig();
 
     await axios.put(`/api/tasks/${taskId}`, taskData, config);
 
+    dispatch(clearTask());
     history.push("/manage-tasks");
-    createAlert("Task updated", "success", 3000);
+
+    dispatch(createAlert("Task updated", "success", 3000));
   } catch (error) {
     dispatch({
       type: TASK_ERROR,
@@ -93,11 +102,4 @@ export const findTask = (taskId, history) => (dispatch) => {
       payload: `Invalid id ${taskId}`,
     });
   }
-};
-
-//Clear task
-export const clearTask = () => (dispatch) => {
-  dispatch({
-    type: CLEAR_TASK,
-  });
 };
