@@ -35,7 +35,7 @@ const Navbar = ({ isAuthenticated, loading, logout }) => {
         </Link>
       </li>
       <li className="navigation__item">
-        <Link className="navigation__item__link" to="/contacts">
+        <Link className="navigation__item__link" to="/manage-contacts">
           <i className="fas fa-user-plus"></i> Contacts
         </Link>
       </li>

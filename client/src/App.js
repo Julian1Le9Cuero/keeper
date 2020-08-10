@@ -11,7 +11,7 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import Tasks from "./components/Tasks/Tasks";
 import TaskForm from "./components/TaskForm/TaskForm";
 import ManageTasks from "./components/ManageTasks/ManageTasks";
-import Spinner from "./components/Spinner/Spinner";
+import ManageContacts from "./components/ManageContacts/ManageContacts";
 
 // Redux
 import store from "./redux/store";
@@ -38,7 +38,7 @@ const App = () => {
           <PrivateRoute exact path="/tasks" component={Tasks} />
           <PrivateRoute exact path="/add-task" component={TaskForm} />
           <PrivateRoute exact path="/manage-tasks" component={ManageTasks} />
-          <Route exact path="/about" component={Spinner} />
+          <Route exact path="/about" component={ManageContacts} />
         </Switch>
       </Router>
     </Provider>

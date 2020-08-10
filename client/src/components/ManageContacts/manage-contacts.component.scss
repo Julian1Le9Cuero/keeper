@@ -1,0 +1,17 @@
+.manage-contacts {
+  &__division {
+    display: grid;
+    grid-template-areas: "contacts contacts contact-form";
+    gap: 50px;
+  }
+  &__form {
+    grid-area: contact-form;
+  }
+}
+
+.contacts {
+  grid-area: contacts;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
