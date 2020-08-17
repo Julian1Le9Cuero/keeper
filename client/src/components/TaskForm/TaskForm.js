@@ -5,7 +5,6 @@ import "./task-form.component.scss";
 
 import Button from "../Button/Button";
 import Alert from "../Alert/Alert";
-
 import { addTask, updateTask, clearTask } from "../../redux/actions/tasks";
 import { createAlert } from "../../redux/actions/alert";
 

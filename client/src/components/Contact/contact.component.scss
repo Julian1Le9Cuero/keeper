@@ -1,4 +1,42 @@
 .contact {
   padding: 15px;
   border: 2px solid #00bcd4;
+
+  &__name {
+    &__icon {
+      cursor: pointer;
+      &-edit {
+        color: rgba(#86c4ba, 0.7);
+        &:hover {
+          color: #86c4ba;
+        }
+      }
+      &-chat {
+        color: #ebecf1;
+        &:hover {
+          color: #b8b0b0;
+        }
+      }
+    }
+  }
+
+  &__type {
+    color: #fff;
+    &-personal,
+    &-professional {
+      border-radius: 4px;
+      padding: 0 5px;
+    }
+    &-personal {
+      background-color: #bbe1fa;
+    }
+    &-professional {
+      background-color: #519872;
+    }
+  }
+  &__email,
+  &__phone {
+    font-size: 0.85rem;
+    line-height: 2;
+  }
 }

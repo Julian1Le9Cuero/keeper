@@ -37,7 +37,7 @@ const ManageTasks = ({ getTasks, userTasks, tasksLoading }) => {
           <div className="text-left">
             <Button
               kind="link"
-              to="/contacts"
+              to="/manage-contacts"
               className="btn btn-small btn-secondary"
             >
               Go to contacts

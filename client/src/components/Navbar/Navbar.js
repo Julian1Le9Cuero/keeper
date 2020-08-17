@@ -20,8 +20,8 @@ const Navbar = ({ isAuthenticated, loading, logout }) => {
         </Link>
       </li>
       <li className="navigation__item">
-        <Link className="navigation__item__link" to="/about">
-          About
+        <Link className="navigation__item__link" to="/products">
+          Our Products
         </Link>
       </li>
     </ul>

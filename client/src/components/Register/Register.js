@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import "./register.component.scss";
+
 import FormGroup from "../FormGroup/FormGroup";
 import Button from "../Button/Button";
 import Alert from "../Alert/Alert";
-import "./register.component.scss";
-
 import { register } from "../../redux/actions/users";
 import { createAlert } from "../../redux/actions/alert";
 
@@ -82,7 +82,6 @@ const Register = ({ register, isAuthenticated, createAlert }) => {
           <Button kind="link" to="/login" className="btn btn-primary">
             Login
           </Button>
-          {/* <span>Already a member?</span> */}
         </form>
       </div>
     </div>

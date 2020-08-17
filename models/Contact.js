@@ -18,7 +18,10 @@ const ContactSchema = new mongoose.Schema({
   phone: {
     type: String,
     maxlength: [20, "The phone number cannot be more than 20 characters."],
-    required: [true, "Please add your contact's phone number."],
+    match: [
+      /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/,
+      "Invalid phone number.",
+    ],
   },
   contactType: {
     type: String,

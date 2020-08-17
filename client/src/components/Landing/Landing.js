@@ -1,9 +1,16 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 import "./landing.component.scss";
 
 import Button from "../Button/Button";
 
-const Landing = () => {
+const Landing = ({ isAuthenticated, loading }) => {
+  if (isAuthenticated && !loading) {
+    return <Redirect to="/manage-contacts" />;
+  }
+
   return (
     <header className="header">
       <div className="container">
@@ -48,4 +55,14 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+Landing.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.users.isAuthenticated,
+  loading: state.users.loading,
+});
+
+export default connect(mapStateToProps)(Landing);

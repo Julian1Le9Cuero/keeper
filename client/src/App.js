@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import "./App.scss";
 
+// Components
 import Navbar from "./components/Navbar/Navbar";
 import Landing from "./components/Landing/Landing";
 import Register from "./components/Register/Register";
@@ -38,7 +39,11 @@ const App = () => {
           <PrivateRoute exact path="/tasks" component={Tasks} />
           <PrivateRoute exact path="/add-task" component={TaskForm} />
           <PrivateRoute exact path="/manage-tasks" component={ManageTasks} />
-          <Route exact path="/about" component={ManageContacts} />
+          <PrivateRoute
+            exact
+            path="/manage-contacts"
+            component={ManageContacts}
+          />
         </Switch>
       </Router>
     </Provider>
